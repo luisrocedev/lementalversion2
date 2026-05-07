@@ -1,0 +1,167 @@
+---
+/**
+ * Process.astro
+ *
+ * How we work — horizontal numbered timeline.
+ * Each step has a number, title, and short description.
+ */
+
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+const steps: Step[] = [
+  {
+    number: '01',
+    title: 'Diagnóstico',
+    description: 'Escuchamos, analizamos y entendemos tu negocio antes de proponer cualquier solución.',
+  },
+  {
+    number: '02',
+    title: 'Estrategia',
+    description: 'Diseñamos un plan claro con objetivos, plazos y métricas de éxito definidas.',
+  },
+  {
+    number: '03',
+    title: 'Ejecución',
+    description: 'Desarrollamos e implementamos con metodología ágil, iterando contigo en cada sprint.',
+  },
+  {
+    number: '04',
+    title: 'Evolución',
+    description: 'No desaparecemos al entregar. Monitorizamos, optimizamos y escalamos contigo.',
+  },
+];
+---
+
+<section class="process section" aria-labelledby="process-title">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="process__header">
+      <p class="text-label">Cómo trabajamos</p>
+      <h2 class="process__title" id="process-title">
+        Un proceso <span class="text-gradient">sin sorpresas</span>
+      </h2>
+    </div>
+
+    <!-- Timeline -->
+    <ol class="process__timeline" role="list">
+      {steps.map(({ number, title, description }, i) => (
+        <li class="process-step">
+          <!-- Connector line (not shown on last) -->
+          {i < steps.length - 1 && (
+            <span class="process-step__connector" aria-hidden="true"></span>
+          )}
+
+          <div class="process-step__number" aria-hidden="true">
+            {number}
+          </div>
+          <h3 class="process-step__title">{title}</h3>
+          <p class="process-step__desc">{description}</p>
+        </li>
+      ))}
+    </ol>
+
+  </div>
+</section>
+
+<style>
+  /* ── Header ─────────────────────────────────────────────── */
+  .process__header {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+
+  .process__header .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .process__title {
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  }
+
+  /* ── Timeline ───────────────────────────────────────────── */
+  .process__timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    position: relative;
+  }
+
+  /* ── Step ───────────────────────────────────────────────── */
+  .process-step {
+    position: relative;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: border-color var(--transition-base);
+  }
+
+  .process-step:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  /* Connector — horizontal line between steps */
+  .process-step__connector {
+    display: none; /* handled via CSS between grid items */
+  }
+
+  .process-step__number {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-weight-black);
+    color: var(--color-primary);
+    opacity: 0.25;
+    line-height: 1;
+    letter-spacing: var(--letter-spacing-tight);
+  }
+
+  .process-step__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .process-step__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+  }
+
+  /* Arrow connector between cards */
+  .process__timeline::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--space-8) + 2.5rem); /* align with number center */
+    left: calc(25% + var(--space-8));
+    right: calc(25% + var(--space-8));
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .process__timeline {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .process__timeline::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .process__timeline {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

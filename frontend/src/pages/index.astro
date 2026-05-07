@@ -1,17 +1,26 @@
 ---
+/**
+ * index.astro — Home page
+ *
+ * Assembles all sections in order.
+ * Each section is an independent component — move, remove or reorder freely.
+ */
 
+import PageLayout  from '../layouts/PageLayout.astro';
+import Hero        from '../components/sections/Hero.astro';
+import Services    from '../components/sections/Services.astro';
+import WhyUs       from '../components/sections/WhyUs.astro';
+import Process     from '../components/sections/Process.astro';
+import CTAFinal    from '../components/sections/CTAFinal.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<PageLayout
+  title="Inicio"
+  description="Lemental — Consultoría tecnológica para empresas que quieren crecer con inteligencia, estrategia y tecnología de alto nivel."
+>
+  <Hero />
+  <Services />
+  <WhyUs />
+  <Process />
+  <CTAFinal />
+</PageLayout>

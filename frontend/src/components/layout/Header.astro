@@ -1,0 +1,305 @@
+---
+/**
+ * Header.astro
+ *
+ * Site-wide navigation. Sticky, with blur backdrop on scroll.
+ * Navigation items are defined here as a typed array — easy to extend.
+ */
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+const navItems: NavItem[] = [
+  { label: 'Inicio',     href: '/' },
+  { label: 'Servicios',  href: '/servicios' },
+  { label: 'Nosotros',   href: '/nosotros' },
+  { label: 'Contacto',   href: '/contacto' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header" id="header">
+  <div class="container header__inner">
+    <!-- Logotype -->
+    <a href="/" class="header__logo" aria-label="Lemental — inicio">
+      <span class="header__logo-mark">L</span>
+      <span class="header__logo-text">emental</span>
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav class="header__nav" aria-label="Navegación principal">
+      <ul class="header__nav-list" role="list">
+        {navItems.map(({ label, href }) => (
+          <li>
+            <a
+              href={href}
+              class:list={['header__nav-link', { 'is-active': currentPath === href }]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- CTA -->
+    <a href="/contacto" class="btn btn--primary header__cta">
+      Hablemos
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <button
+      class="header__burger"
+      id="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Abrir menú"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="header__mobile" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Menú móvil">
+      <ul role="list">
+        {navItems.map(({ label, href }) => (
+          <li>
+            <a
+              href={href}
+              class:list={['header__mobile-link', { 'is-active': currentPath === href }]}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <a href="/contacto" class="btn btn--primary" style="width:100%; justify-content:center; margin-top: var(--space-4);">
+            Hablemos
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* ── Header shell ──────────────────────────────────────── */
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-nav);
+    padding-block: var(--space-4);
+    transition: background var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .header.is-scrolled {
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 var(--color-border);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+  }
+
+  /* ── Logo ───────────────────────────────────────────────── */
+  .header__logo {
+    display: flex;
+    align-items: baseline;
+    gap: 1px;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-tight);
+    flex-shrink: 0;
+  }
+
+  .header__logo-mark {
+    color: var(--color-primary);
+  }
+
+  .header__logo-text {
+    color: var(--color-text);
+  }
+
+  /* ── Nav ────────────────────────────────────────────────── */
+  .header__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__nav-list {
+    display: flex;
+    gap: var(--space-8);
+  }
+
+  .header__nav-link {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+    position: relative;
+  }
+
+  .header__nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-base);
+  }
+
+  .header__nav-link:hover,
+  .header__nav-link.is-active {
+    color: var(--color-text);
+  }
+
+  .header__nav-link:hover::after,
+  .header__nav-link.is-active::after {
+    width: 100%;
+  }
+
+  /* ── Shared button (referenced in multiple components) ── */
+  :global(.btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    transition: all var(--transition-base);
+    white-space: nowrap;
+  }
+
+  :global(.btn--primary) {
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 0 20px var(--color-primary-glow);
+  }
+
+  :global(.btn--primary:hover) {
+    transform: translateY(-1px);
+    box-shadow: 0 0 32px var(--color-primary-glow);
+  }
+
+  :global(.btn--outline) {
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    background: transparent;
+  }
+
+  :global(.btn--outline:hover) {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-dim);
+  }
+
+  /* ── CTA desktop ────────────────────────────────────────── */
+  .header__cta {
+    flex-shrink: 0;
+  }
+
+  /* ── Burger ─────────────────────────────────────────────── */
+  .header__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: var(--space-2);
+    margin-left: auto;
+  }
+
+  .header__burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+  }
+
+  .header__burger[aria-expanded='true'] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .header__burger[aria-expanded='true'] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header__burger[aria-expanded='true'] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ── Mobile menu ────────────────────────────────────────── */
+  .header__mobile {
+    display: none;
+    padding: var(--space-6) var(--space-6) var(--space-8);
+    background: rgba(10, 10, 15, 0.97);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .header__mobile[aria-hidden='false'] {
+    display: block;
+  }
+
+  .header__mobile-link {
+    display: block;
+    padding-block: var(--space-4);
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+    transition: color var(--transition-fast);
+  }
+
+  .header__mobile-link:hover,
+  .header__mobile-link.is-active {
+    color: var(--color-primary);
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .header__nav,
+    .header__cta {
+      display: none;
+    }
+
+    .header__burger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // Sticky scroll effect
+  const header = document.getElementById('header')!;
+  const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 20);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu toggle
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu   = document.getElementById('mobile-menu')!;
+
+  toggle.addEventListener('click', () => {
+    const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    menu.setAttribute('aria-hidden', String(isOpen));
+  });
+</script>

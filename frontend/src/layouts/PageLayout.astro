@@ -1,0 +1,33 @@
+---
+/**
+ * PageLayout.astro
+ *
+ * Standard page shell: BaseLayout + Header + main content + Footer.
+ * Use this for all public-facing pages.
+ *
+ * Usage:
+ *   <PageLayout title="Servicios" description="...">
+ *     <YourPageContent />
+ *   </PageLayout>
+ */
+
+import BaseLayout from './BaseLayout.astro';
+import Header     from '../components/layout/Header.astro';
+import Footer     from '../components/layout/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} ogImage={ogImage}>
+  <Header />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

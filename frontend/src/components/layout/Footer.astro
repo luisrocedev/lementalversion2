@@ -1,0 +1,179 @@
+---
+/**
+ * Footer.astro
+ *
+ * Site-wide footer. Links, legal, socials.
+ */
+
+const year = new Date().getFullYear();
+
+const links = {
+  company: [
+    { label: 'Inicio',    href: '/' },
+    { label: 'Servicios', href: '/servicios' },
+    { label: 'Nosotros',  href: '/nosotros' },
+    { label: 'Contacto',  href: '/contacto' },
+  ],
+  legal: [
+    { label: 'Política de privacidad', href: '/privacidad' },
+    { label: 'Aviso legal',            href: '/aviso-legal' },
+  ],
+};
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+
+    <!-- Brand -->
+    <div class="footer__brand">
+      <a href="/" class="footer__logo" aria-label="Lemental — inicio">
+        <span class="footer__logo-mark">L</span>
+        <span>emental</span>
+      </a>
+      <p class="footer__tagline">
+        Tecnología con propósito.<br />Estrategia sin límites.
+      </p>
+    </div>
+
+    <!-- Nav columns -->
+    <nav class="footer__nav" aria-label="Navegación del footer">
+      <div class="footer__col">
+        <p class="footer__col-title">Empresa</p>
+        <ul role="list">
+          {links.company.map(({ label, href }) => (
+            <li><a href={href} class="footer__link">{label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__col">
+        <p class="footer__col-title">Legal</p>
+        <ul role="list">
+          {links.legal.map(({ label, href }) => (
+            <li><a href={href} class="footer__link">{label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p class="footer__copy">
+        &copy; {year} Lemental. Todos los derechos reservados.
+      </p>
+      <p class="footer__made">
+        Hecho con <span aria-hidden="true">&#9679;</span> en España
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--space-24);
+  }
+
+  .footer__inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-16);
+    padding-block: var(--space-16);
+  }
+
+  /* ── Brand ──────────────────────────────────────────────── */
+  .footer__logo {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 1px;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: var(--space-4);
+  }
+
+  .footer__logo-mark {
+    color: var(--color-primary);
+  }
+
+  .footer__tagline {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-snug);
+  }
+
+  /* ── Nav ────────────────────────────────────────────────── */
+  .footer__nav {
+    display: flex;
+    gap: var(--space-16);
+  }
+
+  .footer__col-title {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .footer__col ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer__link {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    transition: color var(--transition-fast);
+  }
+
+  .footer__link:hover {
+    color: var(--color-primary);
+  }
+
+  /* ── Bottom bar ─────────────────────────────────────────── */
+  .footer__bottom {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-6);
+  }
+
+  .footer__bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .footer__copy,
+  .footer__made {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+  }
+
+  .footer__made span {
+    color: var(--color-primary);
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .footer__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .footer__nav {
+      gap: var(--space-10);
+    }
+
+    .footer__bottom-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
