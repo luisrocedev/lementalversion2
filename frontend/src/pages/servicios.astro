@@ -1,0 +1,322 @@
+---
+/**
+ * servicios.astro — Página de servicios
+ *
+ * Hero de página + grid detallado de servicios + CTA.
+ */
+
+import PageLayout from '../layouts/PageLayout.astro';
+import CTAFinal   from '../components/sections/CTAFinal.astro';
+
+interface Service {
+  icon: string;
+  title: string;
+  tagline: string;
+  description: string;
+  features: string[];
+  tags: string[];
+}
+
+const services: Service[] = [
+  {
+    icon: '⬡',
+    title: 'Transformación Digital',
+    tagline: 'De la visión a la ejecución',
+    description: 'Diseñamos la hoja de ruta completa para modernizar tu empresa. Auditamos tus procesos actuales, identificamos cuellos de botella y construimos un plan de acción concreto con métricas reales.',
+    features: [
+      'Auditoría tecnológica completa',
+      'Diseño de roadmap por fases',
+      'Gestión del cambio organizacional',
+      'KPIs y métricas de seguimiento',
+    ],
+    tags: ['Estrategia', 'Auditoría', 'Roadmap'],
+  },
+  {
+    icon: '◈',
+    title: 'Desarrollo a Medida',
+    tagline: 'Software que se adapta a ti',
+    description: 'Construimos aplicaciones web, APIs y sistemas de integración que encajan exactamente con tu flujo de negocio. Sin plantillas, sin compromisos, sin deuda técnica innecesaria.',
+    features: [
+      'Arquitectura limpia y escalable',
+      'Desarrollo frontend y backend',
+      'APIs REST y GraphQL',
+      'Integraciones con sistemas existentes',
+    ],
+    tags: ['Web', 'Apps', 'API'],
+  },
+  {
+    icon: '⬙',
+    title: 'Inteligencia Artificial',
+    tagline: 'IA que trabaja para tu equipo',
+    description: 'Implementamos soluciones de IA y automatización reales: desde agentes inteligentes hasta pipelines de datos. Sin buzzwords, con resultados medibles.',
+    features: [
+      'Integración de LLMs en tus flujos',
+      'Automatización de procesos repetitivos',
+      'Análisis predictivo de datos',
+      'Chatbots y agentes personalizados',
+    ],
+    tags: ['IA', 'Automatización', 'LLM'],
+  },
+  {
+    icon: '◎',
+    title: 'Arquitectura Cloud',
+    tagline: 'Infraestructura que crece contigo',
+    description: 'Diseñamos y migramos infraestructura cloud con foco en escalabilidad, seguridad y costes controlados. Trabajamos con AWS, Azure y GCP.',
+    features: [
+      'Diseño de arquitectura cloud-native',
+      'Migración desde on-premise',
+      'Optimización de costes cloud',
+      'DevOps y CI/CD pipelines',
+    ],
+    tags: ['AWS', 'Azure', 'GCP'],
+  },
+  {
+    icon: '⬛',
+    title: 'Ciberseguridad',
+    tagline: 'Protección sin excusas',
+    description: 'Identificamos vulnerabilidades antes de que lo hagan otros. Auditorías técnicas, pentesting y planes de respuesta ante incidentes adaptados a tu sector.',
+    features: [
+      'Auditorías de seguridad técnica',
+      'Pentesting de aplicaciones y redes',
+      'Cumplimiento GDPR y normativas',
+      'Plan de respuesta ante incidentes',
+    ],
+    tags: ['Auditoría', 'Pentesting', 'Compliance'],
+  },
+  {
+    icon: '◬',
+    title: 'Consultoría Estratégica',
+    tagline: 'Tu CTO externo de confianza',
+    description: 'Acompañamos a dirección y equipos técnicos en decisiones tecnológicas críticas. Reuniones de estrategia, revisión de código, arquitectura y visión de producto.',
+    features: [
+      'CTO as a Service',
+      'Tech due diligence',
+      'Revisión de arquitectura',
+      'Definición de OKRs técnicos',
+    ],
+    tags: ['CTO as a Service', 'Advisory', 'OKRs'],
+  },
+];
+---
+
+<PageLayout
+  title="Servicios"
+  description="Consultoría tecnológica, desarrollo a medida, IA, cloud y ciberseguridad. Soluciones reales para empresas reales."
+>
+
+  <!-- Page Hero -->
+  <section class="page-hero section" aria-labelledby="services-page-title">
+    <div class="container page-hero__inner">
+      <p class="text-label">Nuestros servicios</p>
+      <h1 class="page-hero__title" id="services-page-title">
+        Soluciones que<br />
+        <span class="text-gradient">mueven empresas</span>
+      </h1>
+      <p class="page-hero__sub">
+        No vendemos paquetes cerrados. Cada proyecto empieza con una
+        conversación honesta sobre lo que necesitas y lo que tiene sentido.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services detail -->
+  <section class="services-detail section--sm" aria-label="Detalle de servicios">
+    <div class="container">
+      <ul class="services-detail__list" role="list">
+        {services.map(({ icon, title, tagline, description, features, tags }, i) => (
+          <li class:list={['services-detail__item', { 'is-reversed': i % 2 !== 0 }]}>
+            <div class="services-detail__content">
+              <span class="services-detail__icon" aria-hidden="true">{icon}</span>
+              <p class="services-detail__tagline text-label">{tagline}</p>
+              <h2 class="services-detail__title">{title}</h2>
+              <p class="services-detail__desc">{description}</p>
+              <ul class="services-detail__features" role="list">
+                {features.map(f => (
+                  <li class="services-detail__feature">
+                    <span aria-hidden="true" class="services-detail__check">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div class="services-detail__tags">
+                {tags.map(tag => <span class="tag">{tag}</span>)}
+              </div>
+            </div>
+            <div class="services-detail__visual" aria-hidden="true">
+              <div class="services-detail__card-bg">
+                <span class="services-detail__big-icon">{icon}</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTAFinal />
+
+</PageLayout>
+
+<style>
+  /* ── Page Hero ───────────────────────────────────────────── */
+  .page-hero {
+    padding-top: calc(80px + var(--space-16));
+    text-align: center;
+  }
+
+  .page-hero__inner {
+    max-width: var(--container-md);
+    margin-inline: auto;
+  }
+
+  .page-hero__inner .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .page-hero__title {
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    margin-bottom: var(--space-6);
+  }
+
+  .page-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  /* ── Services detail list ────────────────────────────────── */
+  .services-detail__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .services-detail__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-12);
+    transition: border-color var(--transition-base);
+  }
+
+  .services-detail__item:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .services-detail__item.is-reversed {
+    direction: rtl;
+  }
+
+  .services-detail__item.is-reversed > * {
+    direction: ltr;
+  }
+
+  /* ── Content ────────────────────────────────────────────── */
+  .services-detail__icon {
+    display: block;
+    font-size: var(--text-3xl);
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+    line-height: 1;
+  }
+
+  .services-detail__tagline {
+    margin-bottom: var(--space-3);
+  }
+
+  .services-detail__title {
+    font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+    margin-bottom: var(--space-4);
+  }
+
+  .services-detail__desc {
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+    margin-bottom: var(--space-6);
+  }
+
+  /* Features list */
+  .services-detail__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  .services-detail__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .services-detail__check {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-bold);
+    flex-shrink: 0;
+  }
+
+  /* Tags */
+  .services-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  :global(.tag) {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-primary);
+    background: var(--color-primary-dim);
+    border: 1px solid rgba(218, 119, 86, 0.25);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    letter-spacing: var(--letter-spacing-wide);
+  }
+
+  /* ── Visual placeholder ─────────────────────────────────── */
+  .services-detail__visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .services-detail__card-bg {
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 320px;
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .services-detail__big-icon {
+    font-size: 6rem;
+    color: var(--color-primary);
+    opacity: 0.2;
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .services-detail__item,
+    .services-detail__item.is-reversed {
+      grid-template-columns: 1fr;
+      direction: ltr;
+    }
+
+    .services-detail__visual {
+      display: none;
+    }
+  }
+</style>

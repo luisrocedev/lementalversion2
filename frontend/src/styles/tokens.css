@@ -8,27 +8,27 @@
   /* ── Colors ─────────────────────────────────────────────── */
 
   /* Base */
-  --color-bg:           #0A0A0F;
-  --color-bg-surface:   #12121A;
-  --color-bg-elevated:  #1A1A26;
+  --color-bg:           #0F0E0C;
+  --color-bg-surface:   #1A1814;
+  --color-bg-elevated:  #242018;
 
-  /* Brand */
-  --color-primary:      #6C63FF;
-  --color-primary-dim:  rgba(108, 99, 255, 0.15);
-  --color-primary-glow: rgba(108, 99, 255, 0.35);
+  /* Brand — Claude orange/terracota */
+  --color-primary:      #DA7756;
+  --color-primary-dim:  rgba(218, 119, 86, 0.15);
+  --color-primary-glow: rgba(218, 119, 86, 0.35);
 
-  /* Accent */
-  --color-accent:       #00D4FF;
-  --color-accent-dim:   rgba(0, 212, 255, 0.12);
+  /* Accent — warm amber */
+  --color-accent:       #F0A070;
+  --color-accent-dim:   rgba(240, 160, 112, 0.12);
 
   /* Text */
-  --color-text:         #F0F0FF;
-  --color-text-muted:   #8888AA;
-  --color-text-subtle:  #4A4A6A;
+  --color-text:         #F5F0EB;
+  --color-text-muted:   #9A8F85;
+  --color-text-subtle:  #5A5048;
 
   /* Borders */
-  --color-border:       rgba(108, 99, 255, 0.18);
-  --color-border-hover: rgba(108, 99, 255, 0.45);
+  --color-border:       rgba(218, 119, 86, 0.18);
+  --color-border-hover: rgba(218, 119, 86, 0.45);
 
   /* Feedback */
   --color-success:      #22C55E;
@@ -106,7 +106,7 @@
   --shadow-md:      0 4px 16px rgba(0, 0, 0, 0.5);
   --shadow-lg:      0 8px 32px rgba(0, 0, 0, 0.6);
   --glow-primary:   0 0 24px var(--color-primary-glow);
-  --glow-accent:    0 0 24px rgba(0, 212, 255, 0.25);
+  --glow-accent:    0 0 24px rgba(240, 160, 112, 0.25);
 
   /* ── Transitions ─────────────────────────────────────────── */
 

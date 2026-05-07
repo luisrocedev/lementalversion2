@@ -1,0 +1,434 @@
+---
+/**
+ * nosotros.astro — Página sobre nosotros
+ *
+ * Misión, valores, equipo y cultura de empresa.
+ */
+
+import PageLayout from '../layouts/PageLayout.astro';
+import CTAFinal   from '../components/sections/CTAFinal.astro';
+
+interface Value {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  initial: string;
+}
+
+const values: Value[] = [
+  {
+    icon: '◈',
+    title: 'Honestidad técnica',
+    description: 'Decimos lo que pensamos aunque no sea lo que quieres escuchar. La confianza se gana siendo directos.',
+  },
+  {
+    icon: '⬡',
+    title: 'Impacto sobre actividad',
+    description: 'No medimos el éxito en horas facturadas. Lo medimos en resultados reales para tu negocio.',
+  },
+  {
+    icon: '◬',
+    title: 'Largo plazo primero',
+    description: 'Cada decisión técnica la tomamos pensando en los próximos 3 años, no en el próximo sprint.',
+  },
+  {
+    icon: '⬙',
+    title: 'Aprendizaje continuo',
+    description: 'La tecnología cambia rápido. Invertimos en formación constantemente para que tú no tengas que hacerlo.',
+  },
+];
+
+const team: TeamMember[] = [
+  {
+    name: 'Alejandro Mora',
+    role: 'CEO & Arquitecto de Software',
+    bio: '+12 años construyendo sistemas escalables para empresas de todos los tamaños. Fanático de la arquitectura limpia y el café.',
+    initial: 'A',
+  },
+  {
+    name: 'Lucía Fernández',
+    role: 'Directora de Estrategia Digital',
+    bio: 'Transforma objetivos de negocio en hojas de ruta tecnológicas. Ha liderado transformaciones digitales en 3 países.',
+    initial: 'L',
+  },
+  {
+    name: 'Carlos Ruiz',
+    role: 'Lead Engineer',
+    bio: 'Especialista en cloud y sistemas distribuidos. Si algo puede escalar, Carlos ya lo ha hecho escalar antes.',
+    initial: 'C',
+  },
+  {
+    name: 'Marta Delgado',
+    role: 'IA & Automatización',
+    bio: 'Implementa soluciones de IA que funcionan en producción. Convierte modelos en herramientas que la gente realmente usa.',
+    initial: 'M',
+  },
+];
+---
+
+<PageLayout
+  title="Nosotros"
+  description="Conoce al equipo de Lemental. Consultores tecnológicos con más de una década de experiencia real en proyectos reales."
+>
+
+  <!-- Page Hero -->
+  <section class="page-hero section" aria-labelledby="about-title">
+    <div class="container page-hero__inner">
+      <p class="text-label">Sobre nosotros</p>
+      <h1 class="page-hero__title" id="about-title">
+        Tecnología con<br />
+        <span class="text-gradient">criterio propio</span>
+      </h1>
+      <p class="page-hero__sub">
+        Somos un equipo de consultores tecnológicos que lleva más de una
+        década construyendo, rompiendo y volviendo a construir sistemas
+        para empresas que quieren crecer en serio.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission section--sm" aria-labelledby="mission-title">
+    <div class="container mission__inner">
+      <div class="mission__text">
+        <p class="text-label">Nuestra misión</p>
+        <h2 class="mission__title" id="mission-title">
+          Hacer que la tecnología<br />
+          <span class="text-gradient">trabaje para ti</span>
+        </h2>
+        <p class="mission__desc">
+          Demasiadas empresas invierten en tecnología sin ver resultados.
+          Porque la herramienta no es el problema — la estrategia sí lo es.
+        </p>
+        <p class="mission__desc">
+          Nuestra misión es cerrar esa brecha: conectar cada decisión
+          técnica con un objetivo de negocio real. Nada de tecnología por
+          la tecnología.
+        </p>
+      </div>
+      <div class="mission__stats" aria-label="Estadísticas del equipo">
+        <div class="mission-stat">
+          <span class="mission-stat__value">+10</span>
+          <span class="mission-stat__label">años de experiencia</span>
+        </div>
+        <div class="mission-stat">
+          <span class="mission-stat__value">+80</span>
+          <span class="mission-stat__label">proyectos entregados</span>
+        </div>
+        <div class="mission-stat">
+          <span class="mission-stat__value">4</span>
+          <span class="mission-stat__label">países de operación</span>
+        </div>
+        <div class="mission-stat">
+          <span class="mission-stat__value">100%</span>
+          <span class="mission-stat__label">clientes que repiten</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values section" aria-labelledby="values-title">
+    <div class="container">
+      <div class="values__header">
+        <p class="text-label">Nuestros valores</p>
+        <h2 class="values__title" id="values-title">
+          Lo que nos guía<br />
+          <span class="text-gradient">cada día</span>
+        </h2>
+      </div>
+      <ul class="values__grid" role="list">
+        {values.map(({ icon, title, description }) => (
+          <li class="value-card">
+            <span class="value-card__icon" aria-hidden="true">{icon}</span>
+            <h3 class="value-card__title">{title}</h3>
+            <p class="value-card__desc">{description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="team section--sm" aria-labelledby="team-title">
+    <div class="container">
+      <div class="team__header">
+        <p class="text-label">El equipo</p>
+        <h2 class="team__title" id="team-title">
+          Personas reales,<br />
+          <span class="text-gradient">resultados reales</span>
+        </h2>
+      </div>
+      <ul class="team__grid" role="list">
+        {team.map(({ name, role, bio, initial }) => (
+          <li class="team-card">
+            <div class="team-card__avatar" aria-hidden="true">
+              {initial}
+            </div>
+            <h3 class="team-card__name">{name}</h3>
+            <p class="team-card__role">{role}</p>
+            <p class="team-card__bio">{bio}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTAFinal />
+
+</PageLayout>
+
+<style>
+  /* ── Page Hero (shared pattern) ─────────────────────────── */
+  .page-hero {
+    padding-top: calc(80px + var(--space-16));
+    text-align: center;
+  }
+
+  .page-hero__inner {
+    max-width: var(--container-md);
+    margin-inline: auto;
+  }
+
+  .page-hero__inner .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .page-hero__title {
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    margin-bottom: var(--space-6);
+  }
+
+  .page-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+    max-width: 580px;
+    margin-inline: auto;
+  }
+
+  /* ── Mission ────────────────────────────────────────────── */
+  .mission__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-20);
+    align-items: center;
+  }
+
+  .mission__text .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .mission__title {
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+    margin-bottom: var(--space-6);
+  }
+
+  .mission__desc {
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+    margin-bottom: var(--space-4);
+  }
+
+  .mission__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .mission-stat {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    transition: border-color var(--transition-base);
+  }
+
+  .mission-stat:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .mission-stat__value {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: var(--font-weight-black);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+
+  .mission-stat__label {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+  }
+
+  /* ── Values ─────────────────────────────────────────────── */
+  .values__header {
+    text-align: center;
+    max-width: 500px;
+    margin-inline: auto;
+    margin-bottom: var(--space-16);
+  }
+
+  .values__header .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .values__title {
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  }
+
+  .values__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  .value-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: border-color var(--transition-base), transform var(--transition-base);
+  }
+
+  .value-card:hover {
+    border-color: var(--color-border-hover);
+    transform: translateY(-4px);
+  }
+
+  .value-card__icon {
+    font-size: var(--text-2xl);
+    color: var(--color-primary);
+    line-height: 1;
+  }
+
+  .value-card__title {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .value-card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+  }
+
+  /* ── Team ───────────────────────────────────────────────── */
+  .team__header {
+    text-align: center;
+    max-width: 500px;
+    margin-inline: auto;
+    margin-bottom: var(--space-16);
+  }
+
+  .team__header .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .team__title {
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  }
+
+  .team__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+
+  .team-card {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: border-color var(--transition-base);
+  }
+
+  .team-card:hover {
+    border-color: var(--color-border-hover);
+  }
+
+  .team-card__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary-dim);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-2);
+  }
+
+  .team-card__name {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .team-card__role {
+    font-size: var(--text-xs);
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: var(--letter-spacing-wide);
+    text-transform: uppercase;
+  }
+
+  .team-card__bio {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 1024px) {
+    .values__grid,
+    .team__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .mission__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .values__grid,
+    .team__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .mission__stats {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

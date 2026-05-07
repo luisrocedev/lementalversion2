@@ -1,0 +1,115 @@
+---
+/**
+ * privacidad.astro — Política de privacidad
+ */
+
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="Política de Privacidad"
+  description="Política de privacidad de Lemental. Cómo tratamos tus datos personales."
+>
+  <section class="legal section" aria-labelledby="privacy-title">
+    <div class="container legal__inner">
+      <header class="legal__header">
+        <p class="text-label">Legal</p>
+        <h1 id="privacy-title" class="legal__title">Política de Privacidad</h1>
+        <p class="legal__updated">Última actualización: mayo 2025</p>
+      </header>
+
+      <div class="legal__body">
+        <section class="legal__section">
+          <h2>1. Responsable del tratamiento</h2>
+          <p>Lemental S.L. (en adelante, "Lemental") es la entidad responsable del tratamiento de tus datos personales. Puedes contactarnos en <a href="mailto:privacidad@lemental.com">privacidad@lemental.com</a>.</p>
+        </section>
+
+        <section class="legal__section">
+          <h2>2. Datos que recopilamos</h2>
+          <p>Únicamente recopilamos los datos que tú nos proporcionas de forma activa a través del formulario de contacto: nombre, dirección de correo electrónico, empresa y el contenido del mensaje.</p>
+        </section>
+
+        <section class="legal__section">
+          <h2>3. Finalidad del tratamiento</h2>
+          <p>Utilizamos tus datos exclusivamente para responder a tu consulta y, si existe un interés mutuo, para gestionar la relación comercial derivada. No usamos tus datos para ningún otro fin sin tu consentimiento expreso.</p>
+        </section>
+
+        <section class="legal__section">
+          <h2>4. Conservación de datos</h2>
+          <p>Conservamos tus datos durante el tiempo necesario para dar respuesta a tu consulta y, en caso de relación contractual, durante el plazo legalmente exigido.</p>
+        </section>
+
+        <section class="legal__section">
+          <h2>5. Tus derechos</h2>
+          <p>Tienes derecho a acceder, rectificar, suprimir, limitar el tratamiento y oponerte al uso de tus datos. Para ejercer cualquiera de estos derechos, escríbenos a <a href="mailto:privacidad@lemental.com">privacidad@lemental.com</a>.</p>
+        </section>
+
+        <section class="legal__section">
+          <h2>6. No cedemos tus datos</h2>
+          <p>Lemental no vende, alquila ni comparte tus datos personales con terceros, salvo obligación legal.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .legal {
+    padding-top: calc(80px + var(--space-16));
+  }
+
+  .legal__inner {
+    max-width: var(--container-md);
+    margin-inline: auto;
+  }
+
+  .legal__header {
+    margin-bottom: var(--space-12);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--space-8);
+  }
+
+  .legal__header .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .legal__title {
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+    margin-bottom: var(--space-3);
+  }
+
+  .legal__updated {
+    font-size: var(--text-sm);
+    color: var(--color-text-subtle);
+  }
+
+  .legal__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  .legal__section h2 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  .legal__section p {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+  }
+
+  .legal__section a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .legal__section a:hover {
+    color: var(--color-accent);
+  }
+</style>

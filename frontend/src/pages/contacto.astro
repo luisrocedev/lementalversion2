@@ -1,0 +1,497 @@
+---
+/**
+ * contacto.astro — Página de contacto
+ *
+ * Formulario de contacto + info de contacto directo.
+ * El form hace POST al backend PHP en /backend/api/contact.php.
+ */
+
+import PageLayout from '../layouts/PageLayout.astro';
+
+const contactInfo = [
+  {
+    icon: '◉',
+    label: 'Email',
+    value: 'hola@lemental.com',
+    href: 'mailto:hola@lemental.com',
+  },
+  {
+    icon: '◈',
+    label: 'LinkedIn',
+    value: 'linkedin.com/company/lemental',
+    href: 'https://linkedin.com/company/lemental',
+  },
+  {
+    icon: '⬡',
+    label: 'Respuesta',
+    value: 'En menos de 24 horas',
+    href: null,
+  },
+];
+---
+
+<PageLayout
+  title="Contacto"
+  description="Habla con el equipo de Lemental. Sin formularios eternos, sin esperas. Una conversación directa sobre tu proyecto."
+>
+
+  <!-- Page Hero -->
+  <section class="page-hero section" aria-labelledby="contact-title">
+    <div class="container page-hero__inner">
+      <p class="text-label">Hablemos</p>
+      <h1 class="page-hero__title" id="contact-title">
+        Sin rodeos.<br />
+        <span class="text-gradient">Cuéntanos tu reto</span>
+      </h1>
+      <p class="page-hero__sub">
+        No hay formularios eternos ni chatbots. Un mensaje directo y
+        te respondemos en menos de 24 horas.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact section -->
+  <section class="contact section--sm" aria-label="Formulario de contacto">
+    <div class="container contact__inner">
+
+      <!-- Form -->
+      <div class="contact__form-wrap">
+        <form
+          class="contact-form"
+          id="contact-form"
+          method="POST"
+          action="/backend/api/contact.php"
+          novalidate
+        >
+          <div class="contact-form__row">
+            <div class="field">
+              <label class="field__label" for="name">Nombre</label>
+              <input
+                class="field__input"
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Tu nombre"
+                required
+                autocomplete="name"
+              />
+            </div>
+            <div class="field">
+              <label class="field__label" for="email">Email</label>
+              <input
+                class="field__input"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="tu@empresa.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="company">Empresa</label>
+            <input
+              class="field__input"
+              type="text"
+              id="company"
+              name="company"
+              placeholder="Nombre de tu empresa"
+              autocomplete="organization"
+            />
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="service">¿En qué podemos ayudarte?</label>
+            <select class="field__input field__input--select" id="service" name="service">
+              <option value="" disabled selected>Selecciona un servicio</option>
+              <option value="transformacion-digital">Transformación Digital</option>
+              <option value="desarrollo">Desarrollo a Medida</option>
+              <option value="ia">Inteligencia Artificial</option>
+              <option value="cloud">Arquitectura Cloud</option>
+              <option value="ciberseguridad">Ciberseguridad</option>
+              <option value="consultoria">Consultoría Estratégica</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="message">
+              Cuéntanos tu proyecto
+            </label>
+            <textarea
+              class="field__input field__input--textarea"
+              id="message"
+              name="message"
+              placeholder="Describe brevemente el reto que quieres resolver..."
+              rows="5"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Status message -->
+          <div class="contact-form__status" id="form-status" aria-live="polite"></div>
+
+          <button type="submit" class="btn btn--primary contact-form__submit" id="form-submit">
+            Enviar mensaje
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </div>
+
+      <!-- Info -->
+      <div class="contact__info">
+        <p class="contact__info-title">Otras formas de contacto</p>
+
+        <ul class="contact-info-list" role="list">
+          {contactInfo.map(({ icon, label, value, href }) => (
+            <li class="contact-info-item">
+              <span class="contact-info-item__icon" aria-hidden="true">{icon}</span>
+              <div>
+                <p class="contact-info-item__label">{label}</p>
+                {href
+                  ? <a href={href} class="contact-info-item__value contact-info-item__value--link">{value}</a>
+                  : <p class="contact-info-item__value">{value}</p>
+                }
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <!-- FAQ -->
+        <div class="contact__faq">
+          <p class="contact__faq-title">Preguntas frecuentes</p>
+          <details class="faq-item">
+            <summary class="faq-item__q">¿Cuánto cuesta una consultoría inicial?</summary>
+            <p class="faq-item__a">La primera conversación es siempre gratuita. Queremos entender tu situación antes de proponer cualquier cosa.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-item__q">¿Trabajáis con empresas pequeñas?</summary>
+            <p class="faq-item__a">Sí. Hemos trabajado con equipos de 3 personas y con equipos de 500. El tamaño no importa, el reto sí.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-item__q">¿Dónde operáis?</summary>
+            <p class="faq-item__a">Somos 100% remotos. Trabajamos con clientes en España, Europa y Latam sin problema.</p>
+          </details>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</PageLayout>
+
+<style>
+  /* ── Page Hero ───────────────────────────────────────────── */
+  .page-hero {
+    padding-top: calc(80px + var(--space-16));
+    text-align: center;
+  }
+
+  .page-hero__inner {
+    max-width: var(--container-md);
+    margin-inline: auto;
+  }
+
+  .page-hero__inner .text-label {
+    display: block;
+    margin-bottom: var(--space-4);
+  }
+
+  .page-hero__title {
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-5xl));
+    margin-bottom: var(--space-6);
+  }
+
+  .page-hero__sub {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+    max-width: 480px;
+    margin-inline: auto;
+  }
+
+  /* ── Contact layout ──────────────────────────────────────── */
+  .contact__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-16);
+    align-items: start;
+  }
+
+  /* ── Form wrapper ────────────────────────────────────────── */
+  .contact__form-wrap {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-10);
+  }
+
+  /* ── Form ────────────────────────────────────────────────── */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  /* ── Field ───────────────────────────────────────────────── */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .field__label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+  }
+
+  .field__input {
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    outline: none;
+    width: 100%;
+  }
+
+  .field__input::placeholder {
+    color: var(--color-text-subtle);
+  }
+
+  .field__input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-dim);
+  }
+
+  .field__input--select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239A8F85' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-4) center;
+    padding-right: var(--space-10);
+  }
+
+  .field__input--select option {
+    background: var(--color-bg-elevated);
+    color: var(--color-text);
+  }
+
+  .field__input--textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  /* ── Status ──────────────────────────────────────────────── */
+  .contact-form__status {
+    font-size: var(--text-sm);
+    border-radius: var(--radius-md);
+    padding: 0;
+    transition: all var(--transition-base);
+  }
+
+  .contact-form__status:not(:empty) {
+    padding: var(--space-4);
+  }
+
+  .contact-form__status.is-success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: var(--color-success);
+  }
+
+  .contact-form__status.is-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--color-error);
+  }
+
+  /* ── Submit ──────────────────────────────────────────────── */
+  .contact-form__submit {
+    font-size: var(--text-base);
+    padding: var(--space-4) var(--space-8);
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-form__submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* ── Info ────────────────────────────────────────────────── */
+  .contact__info-title {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  .contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+  }
+
+  .contact-info-item__icon {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    flex-shrink: 0;
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .contact-info-item__label {
+    font-size: var(--text-xs);
+    color: var(--color-text-subtle);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    margin-bottom: var(--space-1);
+  }
+
+  .contact-info-item__value {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .contact-info-item__value--link {
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .contact-info-item__value--link:hover {
+    color: var(--color-accent);
+  }
+
+  /* ── FAQ ─────────────────────────────────────────────────── */
+  .contact__faq-title {
+    font-size: var(--text-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: var(--letter-spacing-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-4);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-item__q {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    padding-block: var(--space-4);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    transition: color var(--transition-fast);
+  }
+
+  .faq-item__q:hover {
+    color: var(--color-primary);
+  }
+
+  .faq-item__q::after {
+    content: '+';
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    flex-shrink: 0;
+    transition: transform var(--transition-base);
+  }
+
+  .faq-item[open] .faq-item__q::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-item__a {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: var(--line-height-loose);
+    padding-bottom: var(--space-4);
+  }
+
+  /* ── Responsive ─────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .contact__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .contact-form__row {
+      grid-template-columns: 1fr;
+    }
+
+    .contact__form-wrap {
+      padding: var(--space-6);
+    }
+  }
+</style>
+
+<script>
+  const form     = document.getElementById('contact-form') as HTMLFormElement;
+  const status   = document.getElementById('form-status')!;
+  const submit   = document.getElementById('form-submit') as HTMLButtonElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    submit.disabled = true;
+    submit.textContent = 'Enviando...';
+    status.className = 'contact-form__status';
+    status.textContent = '';
+
+    try {
+      const data = new FormData(form);
+      const res  = await fetch(form.action, { method: 'POST', body: data });
+      const json = await res.json() as { success: boolean; message: string };
+
+      if (json.success) {
+        status.classList.add('is-success');
+        status.textContent = '✓ Mensaje enviado. Te respondemos en menos de 24h.';
+        form.reset();
+      } else {
+        throw new Error(json.message ?? 'Error desconocido');
+      }
+    } catch (err) {
+      status.classList.add('is-error');
+      status.textContent = '✕ Algo salió mal. Escríbenos directamente a hola@lemental.com';
+    } finally {
+      submit.disabled = false;
+      submit.innerHTML = 'Enviar mensaje <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    }
+  });
+</script>
